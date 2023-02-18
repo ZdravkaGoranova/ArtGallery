@@ -23,6 +23,9 @@ router.post('/create', isAuth, cryptoController.postCreateCrypto);
 router.get('/artGallerys/:bookId/details', cryptoController.getDetails);// router.get('/cubes/:cubeId/details', handleRequest(cubeControler.getDetails));//път към детайла
 
 router.get('/artGallerys/:bookId/wish', isAuth, cryptoController.getWish);
+
+router.get('/artGallerys/:bookId/shared', isAuth, cryptoController.getShared);
+
 router.get('/profile', isAuth, cryptoController.getProfile);
 
 router.get('/artGallerys/:bookId/edit', isAuth, cryptoController.getEditCrypto);// router.get('/cubes/:cubeId/edit', isAuthenticated, handleRequest(cubeControler.getEditCube));

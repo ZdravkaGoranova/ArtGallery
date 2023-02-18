@@ -2,6 +2,7 @@
 const router = require('express').Router();
 
 const Publication = require('../models/Publication.js');
+const User = require('../models/User.js');
 const bookServices = require('../services/bookServices.js');
 const bookUtils = require('../utils/bookUtils.js');
 const { getErrorMessage } = require('../utils/errorUtils.js')
@@ -27,12 +28,19 @@ exports.postCreateCrypto = async (req, res) => {
             picture,
             certificate,
             usersShared,
-            
+
             author: req.user._id,
         });
         console.log(book);
         await book.save();//запазва в db
 
+        const user = await User.findOneAndUpdate(
+            { _id: req.user._id },
+            { $push: { myPublications: book._id } },
+            { new: true }
+        );
+        // console.log(user);
+        
         //или 
         //await cryptoService.create(req.user._id, { name, image, price, description, paymentMethod })
 
@@ -47,13 +55,13 @@ exports.postCreateCrypto = async (req, res) => {
 exports.getDetails = async (req, res) => {//router.get('/:cryptoId/details',(req,res)=>{)
 
     const publication = await bookServices.getOne(req.params.bookId);
-    //console.log(crypto)
+    //console.log(req.user._id)
 
     const isOwner = bookUtils.isOwner(req.user, publication);//const isOwner = crypto.owner==req.user._id;
-     console.log(isOwner)
+    //console.log(isOwner)
 
-    const isWished = publication.wishingList?.some(id => id == req.user?._id);
-    //console.log(isWished)
+    const isWished = publication.usersShared?.some(id => id == req.user?._id);
+    console.log(isWished)
     //crypto.paymentMethod = paymentMethodsMap[crypto.paymentMethod]
 
     if (!publication) {
@@ -83,17 +91,16 @@ exports.getEditCrypto = async (req, res) => {
 
 exports.postEditCrypto = async (req, res) => {
 
-    const { title, author, image, bookReview, genre, stars, wishingList } = req.body
+    const { title, technique, picture, certificate, usersShared } = req.body
 
     try {
         await bookServices.update(req.params.bookId, {
             title,
-            author,
-            image,
-            bookReview,
-            genre,
-            stars,
-            wishingList
+            technique,
+            picture,
+            certificate,
+            usersShared,
+
         })
     } catch (error) {
         // console.log(error.message);
@@ -127,6 +134,19 @@ exports.getWish = async (req, res) => {//router.get('/:cryptoId/buy',isAuth)
     }
     res.redirect(`/artGallerys/${req.params.bookId}/details`);
 }
+
+
+exports.getShared = async (req, res) => {//router.get('/:cryptoId/buy',isAuth)
+    // const crypto = await cryptoService.getOne(req.params.cryptoId);
+    // const isOwner = cryptoUtils.isOwner(req.user, crypto);
+    try {
+        await bookServices.shared(req.user._id, req.params.bookId, req, res);
+    } catch (error) {
+        return res.status(400).render('home/404', { error: getErrorMessage(error) })
+    }
+    res.redirect(`/artGallerys/${req.params.bookId}/details`);
+}
+
 
 
 exports.getProfile = async (req, res) => {

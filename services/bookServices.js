@@ -51,6 +51,28 @@ exports.wish = async (userId, bookId, req, res) => {
     //или Crypto.findByIdAndUpdate(cryptoId, { $push: { buyers: userId } })
 };
 
+
+
+
+exports.shared = async (userId, bookId, req, res) => {
+    const publication = await Publication.findById(bookId);
+    const isOwner = publication.owner == req.user._id;
+    const isWish  = publication.usersShared?.some(id => id == req.user?._id);
+
+    if (isOwner) {
+        return res.render('home/404');
+        //throw new Error ('You is Owner')
+    }
+    if (isWish) {
+        return res.render('home/404');
+        // throw new Error ('You already bought these crypto coins.')
+    }
+
+    publication.usersShared.push(userId);
+    return await publication.save();
+    //console.log(crypto.buyers)
+    //или Crypto.findByIdAndUpdate(cryptoId, { $push: { buyers: userId } })
+};
    
 
 //     const isWish  = book.wishingList?.filter(id => id == req.user?._id);
