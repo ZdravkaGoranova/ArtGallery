@@ -1,7 +1,7 @@
 
 const router = require('express').Router();
 
-const Book = require('../models/Book.js');
+const Publication = require('../models/Publication.js');
 const bookServices = require('../services/bookServices.js');
 const bookUtils = require('../utils/bookUtils.js');
 const { getErrorMessage } = require('../utils/errorUtils.js')
@@ -19,17 +19,16 @@ exports.postCreateCrypto = async (req, res) => {
     console.log(req.user);
 
     try {
-        const { title, author, image, bookReview, genre, stars, wishingList } = req.body;
+        const { title, technique, picture, certificate, usersShared } = req.body;
 
-        let book = new Book({
+        let book = new Publication({
             title,
-            author,
-            image,
-            bookReview,
-            genre,
-            stars,
-            wishingList,
-            owner: req.user._id,
+            technique,
+            picture,
+            certificate,
+            usersShared,
+            
+            author: req.user._id,
         });
         console.log(book);
         await book.save();//запазва в db

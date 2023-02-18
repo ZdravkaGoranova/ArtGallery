@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const Book = require('../models/Book.js');
+const Publication = require('../models/Publication.js');
 const bookServices = require('../services/bookServices.js');
 
 const bookUtils = require('../utils/bookUtils.js');
@@ -14,19 +14,19 @@ router.get('/', (req, res) => {
 
 router.get('/catalog', async (req, res) => {//
 
-    let books = await Book.find().lean();
+    let publications = await Publication.find().lean();
     // console.log(cryptos)
     // res.render('index', { cubes, search, difficultyFrom, diffficultyTo });
-    res.render('book/catalog', { books });
+    res.render('book/catalog', { publications });
 
 });
 router.get('/search', async (req, res) => {
 
     const { name, paymentMethod } = req.query;
-    const book = await bookServices.search(name, paymentMethod);
+    const publication = await bookServices.search(name, paymentMethod);
     const paymentMethods = bookUtils.generatePaymentMethod(paymentMethod);
 
-    res.render('home/search', { book, paymentMethods, name });
+    res.render('home/search', { publication, paymentMethods, name });
 
 });
 

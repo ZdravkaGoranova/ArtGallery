@@ -1,21 +1,35 @@
 
+        <main>
 
-    <section class="create-form-container">
+            <section id="create-container">
+                <div class="create-container-info">
+                    <!-- Do not forget to change the path to the image -->
+                    <img src="/static/img/blog-img12.jpg" alt="image">
 
-        <form  method="POST">
-            <h3>Create Book Review</h3>
-            <label>Title</label>
-            <input type="text" name="title" class="box" id="">
-            <label>Author</label>
-            <input type="text" name="author" class="box" id="">
-            <label>Genre</label>
-            <input type="text" name="genre" class="box" id="">
-            <label>Stars</label>
-            <input type="number" name="stars" class="box" id="">
-            <label>Image</label>
-            <input type="text" name="image" class="box" id="">
-            <label>Review</label>
-            <textarea class="box" name="bookReview"></textarea>
-            <input type="submit" value="Create" class="btn">
-        </form>
-    </section>
+                    <form method="POST" class="container-text">
+
+                        <h2>Create Publication</h2>
+                        <p>Add your own masterpiece!</p>
+
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" placeholder="Spring in the garden" name="title" value="">
+
+                        <label for="painting-tech">Painting technique:</label>
+                        <input type="text" id="painting-tech" placeholder="Oil paints" name="technique" value="">
+
+                        <label for="picture">Art picture:</label>
+                        <input type="text" id="picture" placeholder="http://..." name="picture" value="">
+
+                        <label for="certificate">Certificate of authenticity:</label>
+                        <input type="text" id="certificate" placeholder="Yes" name="certificate" value="">
+
+                        <button class="create-btn">Create</button>
+
+                    </form>
+
+                </div>
+            </section>
+
+        </main>
+
+    

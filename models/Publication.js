@@ -3,19 +3,20 @@ const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
-        // minLength: [2, 'Title should be at least two characters!'],
+        minLength: [6, 'Title should be at least two characters!'],
         required: true,
 
     },
     technique: {
         type: String,
         required: true,
-        // minLength: [5, 'Title should be at least two characters!'],
+        minLength: [15, 'Title should be at least two characters!'],
 
     },
     picture: {
         type: String,
         required: true,
+        match: [/^http[s]?:\/\//, 'Invalid URL']
         // minLength: [5, 'Title should be at least two characters!'],
 
     },
@@ -26,8 +27,6 @@ const bookSchema = new mongoose.Schema({
             message: 'Invalid certificate',
         },
         required: true,
-
-
     },
 
     author: {

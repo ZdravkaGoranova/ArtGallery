@@ -1,4 +1,4 @@
-const Book = require('../models/Book.js');
+const Publication = require('../models/Publication.js');
 
 const bookUtils = require('../utils/bookUtils.js');
 
@@ -16,25 +16,25 @@ exports.search = async (name, paymentMethod) => {
     return cprypto;
 };
 
-exports.getAll = () => Book.find({}).lean();
+exports.getAll = () => Publication.find({}).lean();
 
-exports.create = (ownerId, cryptoData) => Book.create({ ...cryptoData, owner: ownerId });
+exports.create = (ownerId, cryptoData) => Publication.create({ ...cryptoData, owner: ownerId });
 
-exports.getOne = (bookId) => Book.findById(bookId).lean();
+exports.getOne = (bookId) => Publication.findById(bookId).lean();
 
-exports.update = (bookId, data) => Book.findByIdAndUpdate(bookId, data, { runValidators: true });
+exports.update = (bookId, data) => Publication.findByIdAndUpdate(bookId, data, { runValidators: true });
 
-exports.delete = (bookId) => Book.findByIdAndDelete(bookId);
+exports.delete = (bookId) => Publication.findByIdAndDelete(bookId);
 
 
-exports.getMyWishBook = (userId) => Book.find({ wishingList: userId}).lean();
+exports.getMyWishBook = (userId) => Publication.find({ wishingList: userId}).lean();
 
 
 
 exports.wish = async (userId, bookId, req, res) => {
-    const book = await Book.findById(bookId);
-    const isOwner = book.owner == req.user._id;
-    const isWish  = book.wishingList?.some(id => id == req.user?._id);
+    const publication = await Publication.findById(bookId);
+    const isOwner = publication.owner == req.user._id;
+    const isWish  = publication.wishingList?.some(id => id == req.user?._id);
 
     if (isOwner) {
         return res.render('home/404');
@@ -45,8 +45,8 @@ exports.wish = async (userId, bookId, req, res) => {
         // throw new Error ('You already bought these crypto coins.')
     }
 
-    book.wishingList.push(userId);
-    return await book.save();
+    publication.wishingList.push(userId);
+    return await publication.save();
     //console.log(crypto.buyers)
     //или Crypto.findByIdAndUpdate(cryptoId, { $push: { buyers: userId } })
 };
