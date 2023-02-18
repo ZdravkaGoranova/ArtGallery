@@ -1,17 +1,36 @@
 
-    <section class="register-form-container">
 
-        <form  method="POST">
-            <h3>Register</h3>
-            <label>Email</label>
-            <input type="email" name="email" class="box" id="">
-            <label>Username</label>
-            <input type="text" name="username" class="box" id="">
-            <label>Password</label>
-            <input type="password" name="password" class="box" id="">
-            <label>Confirm Password</label>
-            <input type="password" name="confirmPassword" class="box" id="">
-            <input type="submit" value="Register" class="btn">
-            <p>Have an account ? <a href="/login">Click here</a></p>
-        </form>
-    </section>
+        <main>
+
+            <section id="register-container">
+                <div class="register-container-info">
+                    <!-- Do not forget to change the path to the image -->
+                    <img src="/static/img/slider.jpg" alt="image">
+
+                    <form  method="POST" class="container-text">
+                        <h2>Register</h2>
+                        <p>Register to get ideas and view the latest masterpieces.</p>
+
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" placeholder="ivan_00" name="username">
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" placeholder="*****" name="password">
+
+                        <label for="re-password">Repeat password:</label>
+                        <input type="password" id="re-password" placeholder="*****" name="confirmPassword">
+
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" placeholder="2572 Orphan Road" name="address">
+
+                        <button class="register-btn">Register</button>
+                        <div class="card-no-account">
+                            <p>Already have an account?<a href="/login"> Sign in</p>
+                        </div>
+
+                    </form>
+                </div>
+
+            </section>
+
+        </main>

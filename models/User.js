@@ -6,21 +6,27 @@ const userShema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, 'Username is required!'],
-        minLength: 4, 
+       // minLength: 4, 
     },
-    email: {
-        type: String,
-        minLength: 10, 
 
-        required: [true, 'Email is required!'],
-
-    },
     password: {
         type: String,
         required: [true, 'Password is required!'],
-        minLength: 3,
+       // minLength: 3,
+    },
+    address: {
+        type: String,
+        //minLength: 10, 
+
+        required: [true, 'address is required!'],
+
     },
 
+    myPublications: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Publication',
+    }],
+ 
 });
 
 //userShema.virtual('confirmPassword').set;

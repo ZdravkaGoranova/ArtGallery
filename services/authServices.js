@@ -7,7 +7,7 @@ const { SECRET } = require('../constans.js')
 exports.findByUsername = (username) => User.findOne({ username });//User.exists({username})
 exports.findByEmail = (email) => User.findOne({ email });//User.exists({email})
 
-exports.register = async (email, username, password, confirmPassword) => {
+exports.register = async (username, password, confirmPassword, address) => {
 
     if (password !== confirmPassword) {
         throw new Error('Password missmatc!');
@@ -16,8 +16,8 @@ exports.register = async (email, username, password, confirmPassword) => {
     //const existingUser = await this.findByUsername(username);
     const existingUser = await User.findOne({
         $or: [
-            { email },
-            { username }
+            { username },
+          //  { address }
         ]
     });
 
@@ -30,7 +30,7 @@ exports.register = async (email, username, password, confirmPassword) => {
     }
 
 
-    if (email.length < 10) {
+    if (address.length < 20) {
         throw new Error('Username is too short!');
     }
 
@@ -41,16 +41,17 @@ exports.register = async (email, username, password, confirmPassword) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    await User.create({ email, username, password: hashPassword });
+    await User.create({ username, password: hashPassword, address });
 
-    return this.login(email, password);
+    return this.login(username, password);
 };
 
 
-exports.login = async (email, password) => {
+exports.login = async (username, password) => {
 
     //Email/User exist
-    const user = await this.findByEmail(email);
+    const user = await this.findByUsername(username);
+    console.log(user)
     if (!user) {
         throw new Error('Invalid email or password!');
     }
@@ -64,7 +65,6 @@ exports.login = async (email, password) => {
     //Generated token
     const payload = {
         _id: user._id,
-        email,
         username: user.username,
     };
 

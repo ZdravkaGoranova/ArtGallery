@@ -9,10 +9,10 @@ router.get('/login', (req, res) => {
     res.render('auth/login')
 });
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
     try {
-        const token = await authService.login(email, password);
+        const token = await authService.login(username, password);
         console.log(token)
 
         res.cookie('auth', token);
@@ -29,10 +29,10 @@ router.get('/register', (req, res) => {
 
 });
 router.post('/register', async (req, res) => {
-    const { email, username, password, confirmPassword } = req.body;
+    const { username, password, confirmPassword,address } = req.body;
 
     try {
-        const token = await authService.register(email, username, password, confirmPassword);
+        const token = await authService.register(username, password, confirmPassword,address);
 
         //LOGIN automatically
         res.cookie('auth', token);
