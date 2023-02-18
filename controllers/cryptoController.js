@@ -55,13 +55,17 @@ exports.postCreateCrypto = async (req, res) => {
 exports.getDetails = async (req, res) => {//router.get('/:cryptoId/details',(req,res)=>{)
 
     const publication = await bookServices.getOne(req.params.bookId);
-    //console.log(req.user._id)
+    const userId = publication.author.toString()
+    const userData =await bookServices.getAdress(userId)
+
+    console.log(publication.author.toString())
+    //console.log(userData.username)
 
     const isOwner = bookUtils.isOwner(req.user, publication);//const isOwner = crypto.owner==req.user._id;
     //console.log(isOwner)
 
     const isWished = publication.usersShared?.some(id => id == req.user?._id);
-    console.log(isWished)
+    //console.log(isWished)
     //crypto.paymentMethod = paymentMethodsMap[crypto.paymentMethod]
 
     if (!publication) {
@@ -74,7 +78,7 @@ exports.getDetails = async (req, res) => {//router.get('/:cryptoId/details',(req
     // console.log(`=========================================`)
     // console.log(crypto.owner.toString())
 
-    res.render('book/details', { publication, isOwner, isWished });
+    res.render('book/details', { publication, isOwner, isWished,userData });
 };
 
 exports.getEditCrypto = async (req, res) => {
@@ -154,7 +158,7 @@ exports.getProfile = async (req, res) => {
     const userId = req.user._id;
     const user = req.user;
 
-    const adress = await bookServices.getAdress(userId);  
+    const adress = await bookServices.getAdress(userId);
 
     let myusersShared = await bookServices.getMyusersShared(userId);
     let myPublications = await bookServices.getmyPublications(userId);

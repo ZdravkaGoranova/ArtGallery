@@ -28,10 +28,10 @@ router.get('/artGallerys/:bookId/shared', isAuth, cryptoController.getShared);
 
 router.get('/profile', isAuth, cryptoController.getProfile);
 
-router.get('/artGallerys/:bookId/edit', requireAuth, cryptoController.getEditCrypto);// router.get('/cubes/:cubeId/edit', isAuthenticated, handleRequest(cubeControler.getEditCube));
-router.post('/artGallerys/:bookId/edit', requireAuth, cryptoController.postEditCrypto);
+router.get('/artGallerys/:bookId/edit', isAuth, cryptoController.getEditCrypto);// router.get('/cubes/:cubeId/edit', isAuthenticated, handleRequest(cubeControler.getEditCube));
+router.post('/artGallerys/:bookId/edit', isAuth, cryptoController.postEditCrypto);
 
-router.get('/artGallerys/:bookId/delete', requireAuth, cryptoController.getDeleteCrypto);
+router.get('/artGallerys/:bookId/delete', isAuth, cryptoController.getDeleteCrypto);
 
 router.all('*', (req, res) => res.render('home/404'));
 //router.use('*', (req, res) => res.render('home/404'));

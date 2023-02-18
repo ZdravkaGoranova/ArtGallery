@@ -30,6 +30,7 @@ exports.delete = (bookId) => Publication.findByIdAndDelete(bookId);
 
 exports.getMyWishBook = (userId) => Publication.find({ wishingList: userId }).lean();
 
+exports.getUsername = (userId) => User.find({ username: userId }).lean();
 
 exports.getMyusersShared = (userId) => Publication.find({ usersShared: userId }).lean();
 
@@ -39,9 +40,8 @@ exports.getmyPublications = (userId) => Publication.find({ author: userId }).lea
 
 
 
+exports.getAdress = (userId) => User.findById(userId).lean().populate({ path: 'username' });
 
-
-exports.getAdress = (userId) => User.find({ address: userId }).lean();
 
 exports.wish = async (userId, bookId, req, res) => {
     const publication = await Publication.findById(bookId);
