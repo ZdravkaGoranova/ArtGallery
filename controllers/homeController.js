@@ -6,9 +6,19 @@ const bookServices = require('../services/bookServices.js');
 const bookUtils = require('../utils/bookUtils.js');
 
 
-router.get('/', (req, res) => {
+router.get('/', async(req, res) => {
+
+    //const publication  = await Publication.find().limit(10);
+    const publication  = await Publication.find()
+    console.log(publication)
+
+    const publicationData = publication.map(pub => ({ title: pub.title, usersShared: pub.usersShared.length }));
+
+    console.log(publicationData)
+    
+
     // console.log(req.user)
-    res.render('home/index')
+    res.render('home/index', { publication,publicationData })
 });
 
 

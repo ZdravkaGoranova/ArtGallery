@@ -32,3 +32,33 @@ exports.isAuth = async (req, res, next) => {
 };
 
 
+const requireAuth = (req, res, next) => {
+    if (req.session && req.session.userId) {
+        // user is authenticated, allow access to route
+        next();
+    } else {
+        // user is not authenticated, redirect to ArtGallery page
+        res.redirect('/');
+    }
+};
+
+
+exports.requireAuth = (req, res, next) => {
+    if (req.session && req.session.userId) {
+        // user is authenticated, allow access to route
+        next();
+    } else if (req.path === '/login' || req.path === '/register') {
+        // allow access to login and register pages
+        next();
+    } else if (req.path === '/artGallerys/:bookId/delete' || req.path === '/artGallerys/:bookId/edit' ) {
+        // check if user is authenticated and has permission to access dashboard and admin pages
+        if (req.session && req.session.userId && req.session.isAdmin) {
+            next();
+        } else {
+            res.redirect('/login');
+        }
+    } else {
+        // user is not authenticated, redirect to login page
+        res.redirect('/');
+    }
+};
