@@ -40,7 +40,7 @@ exports.postCreateCrypto = async (req, res) => {
             { new: true }
         );
         // console.log(user);
-        
+
         //или 
         //await cryptoService.create(req.user._id, { name, image, price, description, paymentMethod })
 
@@ -153,10 +153,18 @@ exports.getProfile = async (req, res) => {
 
     const userId = req.user._id;
     const user = req.user;
-    let wished = await bookServices.getMyWishBook(userId);
-    console.log(userId)
-    console.log(wished)
-    res.render('book/profile', { user, wished });
+
+    const adress = await bookServices.getAdress(userId);  
+
+    let myusersShared = await bookServices.getMyusersShared(userId);
+    let myPublications = await bookServices.getmyPublications(userId);
+
+    console.log(user)
+    //console.log(myPublications)
+    //console.log(myusersShared)//ok
+
+
+    res.render('book/profile', { user, myusersShared, myPublications });
 
 }
 

@@ -17,7 +17,7 @@ exports.register = async (username, password, confirmPassword, address) => {
     const existingUser = await User.findOne({
         $or: [
             { username },
-          //  { address }
+            //  { address }
         ]
     });
 
@@ -66,6 +66,7 @@ exports.login = async (username, password) => {
     const payload = {
         _id: user._id,
         username: user.username,
+        address: user.address
     };
 
     const token = await jwt.sing(payload, SECRET);

@@ -22,7 +22,7 @@ router.post('/create', isAuth, cryptoController.postCreateCrypto);
 
 router.get('/artGallerys/:bookId/details', cryptoController.getDetails);// router.get('/cubes/:cubeId/details', handleRequest(cubeControler.getDetails));//път към детайла
 
-router.get('/artGallerys/:bookId/wish', isAuth, cryptoController.getWish);
+//router.get('/artGallerys/:bookId/wish', isAuth, cryptoController.getWish);
 
 router.get('/artGallerys/:bookId/shared', isAuth, cryptoController.getShared);
 

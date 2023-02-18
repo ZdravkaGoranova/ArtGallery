@@ -1,37 +1,33 @@
-<section class="profile-page">
-    <div class="profile-card">
-        <div class="top-section">
-            <i class="message fas fa-envelope"></i>
-            <i class="notif fas fa-bell"></i>
-            <div class="pic">
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvPnjeYyAvdnoC_gdZYcJJK_f9f8jZoieK1-JG4YLc3SES_JeHlBbhDEtlyiA2atnl2W0&usqp=CAU">
-            </div>
-            <div class="email">{{user.email}}</div>
-        </div>
+<main>
+    <section id="profile-page">
+        <h1>Full Profile Information</h1>
+        <article class="profile-card">
 
-        <div class="bottom-section">
-            <div class="social-media">
-                <i class="fab fa-facebook"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-instagram"></i>
-                <i class="fas fa-link"></i>
-            </div>
-            <h2>Wishing List</h2>
-        </div>
-    </div>
-    <div class="wish-books">
-        <!--If there are wished books-->
+            <article class="profile-card-info">
+                <h2>Username: {{user.username}}</h2>
+                <h3>Address: {{user.address}}</h3>
+                {{#if myusersShared}}
+                <!--If the user has shared publications, separate their titles with a comma and a space (, )-->
+                <h4>Titles of shared posts by the user: {{#each myusersShared}}{{this.title}}, {{/each}}</h4>
+                <!--If not display:-->
+                {{else}}
+                <h4>Titles of shared posts by the user: Not yet.</h4>
+                {{/if}}
+                {{#if myPublications}}
+                <!--If the user has created their own publications, separate their titles with a comma and a space (, )-->
+                <h4>Titles of which the user is the author: {{#each myPublications}}{{this.title}}, {{/each}}</h4>
+                <!--If not display:-->
+                {{else}}
+                <h4>Titles of which the user is the author: Not yet.</h4>
+                {{/if}}
 
-        {{#each wished}}
+            </article>
 
-        {{> book-card-profile}}
+            <article class="profile-card-icon">
+                <!-- Do not forget to change the path to the image -->
+                <img src="/static/img/vip-user.png" alt="art-image1">
+            </article>
 
-
-        {{else}}
-        <!--If there are no wished books-->
-        <h2 class="no-record-in-profile">There are no book reviews found yet...</h2>
-        {{/each}}
-
-    </div>
-</section>
+        </article>
+    </section>
+</main>
