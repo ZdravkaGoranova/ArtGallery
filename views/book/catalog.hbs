@@ -1,26 +1,28 @@
+<main>
 
-    <main>
-    <section class="catalog" id="catalog">
-        <h2>Book Reviews</h2>
-        <div class="container">
-            <!--If there are book reviews-->
-           
-            {{#if books }}
+    <section id="gallery">
+        <h1>Gallery</h1>
+        <article class="gallery-container">
 
-            {{#each books}}
-            {{>book}}
+            <!--If there are art publications in the database, show each of them-->
+
+            {{#if publications }}
+
+            {{#each publications}}
+            {{>publication}}
             {{/each}}
 
             {{else}}
 
-            <div class="no-offer">
-                <h2 class="no-record">There are no book reviews found yet...</h2>
-            </div>
-
+            <!--If there are still no art publications in the database display:-->
+            <article class="no-available-publications">
+                <h1>No publications created yet.</h1>
+                <a href="/create" class="create-pub">Create publication</a>
+            </article>
             {{/if}}
 
-            
-            
-        </div>
+
+        </article>
     </section>
+
 </main>

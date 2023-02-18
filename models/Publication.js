@@ -10,7 +10,7 @@ const bookSchema = new mongoose.Schema({
     technique: {
         type: String,
         required: true,
-        minLength: [15, 'Title should be at least two characters!'],
+        minLength: [15, 'Technique should be at least 15 characters!'],
 
     },
     picture: {
@@ -49,6 +49,6 @@ const bookSchema = new mongoose.Schema({
 });
 
 
-const Book = mongoose.model('Book', bookSchema);
+const Publication = mongoose.model('Publication', bookSchema);
 
-module.exports = Book;
+module.exports = Publication;

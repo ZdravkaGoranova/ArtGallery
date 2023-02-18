@@ -46,17 +46,17 @@ exports.postCreateCrypto = async (req, res) => {
 
 exports.getDetails = async (req, res) => {//router.get('/:cryptoId/details',(req,res)=>{)
 
-    const book = await bookServices.getOne(req.params.bookId);
+    const publication = await bookServices.getOne(req.params.bookId);
     //console.log(crypto)
 
-    const isOwner = bookUtils.isOwner(req.user, book);//const isOwner = crypto.owner==req.user._id;
-    // console.log(isOwner)
+    const isOwner = bookUtils.isOwner(req.user, publication);//const isOwner = crypto.owner==req.user._id;
+     console.log(isOwner)
 
-    const isWished = book.wishingList?.some(id => id == req.user?._id);
+    const isWished = publication.wishingList?.some(id => id == req.user?._id);
     //console.log(isWished)
     //crypto.paymentMethod = paymentMethodsMap[crypto.paymentMethod]
 
-    if (!book) {
+    if (!publication) {
         return res.render('home/404');
     }
 
@@ -66,7 +66,7 @@ exports.getDetails = async (req, res) => {//router.get('/:cryptoId/details',(req
     // console.log(`=========================================`)
     // console.log(crypto.owner.toString())
 
-    res.render('book/details', { book, isOwner, isWished });
+    res.render('book/details', { publication, isOwner, isWished });
 };
 
 exports.getEditCrypto = async (req, res) => {
@@ -100,7 +100,7 @@ exports.postEditCrypto = async (req, res) => {
         return res.status(400).render('book/edit', { error: getErrorMessage(error) })
 
     }
-    res.redirect(`/books/${req.params.bookId}/details`);
+    res.redirect(`/artGallerys/${req.params.bookId}/details`);
 };
 
 exports.getDeleteCrypto = async (req, res) => {
@@ -125,7 +125,7 @@ exports.getWish = async (req, res) => {//router.get('/:cryptoId/buy',isAuth)
     } catch (error) {
         return res.status(400).render('home/404', { error: getErrorMessage(error) })
     }
-    res.redirect(`/books/${req.params.bookId}/details`);
+    res.redirect(`/artGallerys/${req.params.bookId}/details`);
 }
 
 
